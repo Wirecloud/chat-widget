@@ -1,0 +1,24 @@
+{
+    "browser": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "noempty": true,
+    "undef": true,
+    "unused": true,
+    "strict": true,
+    "globals": {
+        "MashupPlatform": true,
+        "StyledElements": true,
+        "MockMP": true,
+        "ChatLog": true,
+        "Vcard": true,
+        "jasmine": true,
+        "afterEach": true,
+        "beforeEach": true,
+        "describe": true,
+        "expect": true,
+        "it": true
+    },
+    "white": true
+}

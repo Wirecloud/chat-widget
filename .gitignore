@@ -1,0 +1,8 @@
+.grunt/
+Gruntfile.js
+_SpecRunner.html
+node_modules/
+package.json
+reports/
+build/
+*.swp
