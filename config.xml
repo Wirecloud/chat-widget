@@ -1,61 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns="http://wirecloud.conwet.fi.upm.es/ns/template#">
-	<Catalog.ResourceDescription>
-		<Vendor>CoNWeT</Vendor>
-		<Name>chat</Name>
-		<DisplayName>Chat</DisplayName>
-		<Version>1.0.2</Version>
-		<Author>Santiago Blanco</Author>
-		<Mail>sblanco@conwet.com</Mail>
-		<Description>
-            It shows a chat log of every contact who has ever been contacted.
-		</Description>
-		<ImageURI>images/catalogue.png</ImageURI>
-		<iPhoneImageURI>images/catalogue.png</iPhoneImageURI>
-		<WikiURI>http://conwet.fi.upm.es/docs/display/wirecloud/Contact+List</WikiURI>
-	</Catalog.ResourceDescription>
-
-    <Platform.StateProperties>
-        <Property name="log" type="text" label="log"/>
-	</Platform.StateProperties>
-
-    <Platform.Wiring>
-        <InputEndpoint
-            name="profile" 
-            type="text" 
-            description="Profile in vCard format." 
-            action_label="Profile" label="Profile" 
-            friendcode="vCard" />
-            <!-- semanticType="<http://www.w3.org/2006/vcard/VCard>" -->
-        <InputEndpoint
-            name="msg" 
-            type="text" 
-            description="Message to send." 
-            action_label="Message" 
-            label="Message" 
-            friendcode="msg" />
-		<InputEndpoint
-            name="msgAck" 
-            type="text" 
-            description="Received response." 
-            action_label="ACK" 
-            label="Acknowledge" 
-            friendcode="ack" />
-        <OutputEndpoint
-            name="msgOut" 
-            type="text" 
-            description="Message to send it through a channel" 
-            label="Message" 
-            friendcode="msg" />
-	</Platform.Wiring>
-
-    <Platform.Link>
-        <XHTML
-            href="index.html"
-            contenttype="text/html"
-            cacheable="false"
-            use-platform-style="true"/>
-	</Platform.Link>
-
-    <Platform.Rendering width="7" height="50"></Platform.Rendering>
-</Template>
+<?xml version='1.0' encoding='UTF-8'?>
+<widget xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="chat" version="1.0.2">
+  <details>
+    <title>Chat</title>
+    <email>wirecloud@conwet.com</email>
+    <image>images/catalogue.png</image>
+    <smartphoneimage>images/catalogue.png</smartphoneimage>
+    <description>Generic chat widget allowing to use different backends.</description>
+    <authors>Santiago Blanco</authors>
+  </details>
+  <persistentvariables>
+    <variable name="log" type="text" label="log"/>
+  </persistentvariables>
+  <wiring>
+    <outputendpoint name="msgOut" type="text" label="Message" description="Message to send it through a channel" friendcode="msg"/>
+    <inputendpoint name="profile" type="text" label="Profile" description="Profile in vCard format." actionlabel="Profile" friendcode="vCard"/>
+    <inputendpoint name="msg" type="text" label="Message" description="Message to send." actionlabel="Message" friendcode="msg"/>
+    <inputendpoint name="msgAck" type="text" label="Acknowledge" description="Received response." actionlabel="ACK" friendcode="ack"/>
+  </wiring>
+  <contents src="index.html" cacheable="false" useplatformstyle="true"/>
+  <rendering height="50" width="7"/>
+</widget>
