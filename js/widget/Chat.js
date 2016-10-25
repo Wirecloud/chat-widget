@@ -72,30 +72,27 @@
     };
 
     ChatLog.prototype.init = function () {
-        var southLayout;
 
-        // Create Border Layout:
-        this.layout = new StyledElements.BorderLayout();
+        // Create a Vertical Layout
+        this.layout = new StyledElements.VerticalLayout();
         this.layout.insertInto(document.body);
 
-        // Create Horizontal Layout in South Layout:
-        this.layout.getSouthContainer().addClassName('action_bar');
-        southLayout = new StyledElements.HorizontalLayout({'class': 'input-append'});
+        // Use the south container for providing a bar for adding messages
+        this.layout.south.addClassName('action_bar se-input-group');
 
-        // Create Text Input in South Layout
-        this.textInput = new StyledElements.StyledTextField({
+        // Create Text Input
+        this.textInput = new StyledElements.TextField({
             'id': 'input'
         });
-        southLayout.getCenterContainer().appendChild(this.textInput);
+        this.layout.south.appendChild(this.textInput);
 
         // Create send button on the right of Text Input
-        this.sendButton = new StyledElements.StyledButton({
+        this.sendButton = new StyledElements.Button({
             id: 'send',
             text: 'Send'
         });
         this.sendButton.disable();
-        southLayout.getEastContainer().appendChild(this.sendButton);
-        this.layout.getSouthContainer().appendChild(southLayout);
+        this.layout.south.appendChild(this.sendButton);
 
         // Set handler of the text input
         this.textInput.addEventListener('change',  function (input) {
@@ -111,12 +108,12 @@
         var myfriend = document.createElement("span");
         myfriend.classList.add("myfriend");
         myfriend.textContent = "";
-        this.layout.getNorthContainer().appendChild(myfriend);
+        this.layout.north.appendChild(myfriend);
         
         var me = document.createElement("span");
         me.classList.add("me");
         me.textContent = MashupPlatform.context.get("username");
-        this.layout.getNorthContainer().appendChild(me);
+        this.layout.north.appendChild(me);
         
         this.repaint();
     };
@@ -160,7 +157,7 @@
         this.textInput.setValue('');
         this.sendButton.disable();
 
-        this.layout.getCenterContainer().appendChild(balloon);
+        this.layout.center.appendChild(balloon);
         moveDownScroll.call(this);
         storeMsg.call(this, this.contact, text, 'sent', ballonId);
         
@@ -180,8 +177,8 @@
         
         this.contact = id;
         
-        this.layout.getNorthContainer().wrapperElement.getElementsByTagName("span")[0].textContent = id;
-        this.layout.getCenterContainer().clear();
+        this.layout.north.wrapperElement.getElementsByTagName("span")[0].textContent = id;
+        this.layout.center.clear();
         
         if (this.contact in this.log) {
             var history = this.log[this.contact];
@@ -193,7 +190,7 @@
                 balloon.classList.add('balloon');
                 balloon.textContent = msg.text;
                 
-                this.layout.getCenterContainer().appendChild(balloon);
+                this.layout.center.appendChild(balloon);
                 if (msg.type === 'recv') {
                     balloon.classList.add('left');
                 } else {
@@ -227,7 +224,7 @@
             balloon.setAttribute("id", ballonId);
             balloon.classList.add('balloon', 'left');
             balloon.textContent = json.msg;
-            this.layout.getCenterContainer().appendChild(balloon);
+            this.layout.center.appendChild(balloon);
             moveDownScroll.call(this);
         }
         storeMsg.call(this, json.contact, json.msg, 'recv', ballonId);
@@ -285,9 +282,9 @@
     };
 
     var moveDownScroll = function moveDownScroll() {
-        var clientHeight = this.layout.getCenterContainer().wrapperElement.clientHeight;
-        var scrollHeight = this.layout.getCenterContainer().wrapperElement.scrollHeight;
-        this.layout.getCenterContainer().wrapperElement.scrollTop = scrollHeight - clientHeight;
+        var clientHeight = this.layout.center.wrapperElement.clientHeight;
+        var scrollHeight = this.layout.center.wrapperElement.scrollHeight;
+        this.layout.center.wrapperElement.scrollTop = scrollHeight - clientHeight;
     };
 
     window.ChatLog = ChatLog;
