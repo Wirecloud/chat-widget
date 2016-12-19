@@ -6,14 +6,14 @@ describe("Chat:", function () {
         it("should display something", function () {
             expect(true).toBeTruthy();
         });
-        
+
     });
 
     describe("Inputs:", function () {
-        
+
     });
 
     describe("Outputs:", function () {
-        
+
     });
 });

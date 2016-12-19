@@ -6,7 +6,12 @@
     <image>images/catalogue.png</image>
     <smartphoneimage>images/catalogue.png</smartphoneimage>
     <description>Generic chat widget allowing to use different backends.</description>
+    <longdescription>DESCRIPTION.md</longdescription>
+    <changelog>doc/changelog.md</changelog>
+    <doc>doc/userguide.md</doc>
+    <license>MIT</license>
     <authors>Santiago Blanco</authors>
+    <issuetracker>https://github.com/Wirecloud/chat-widget/issues</issuetracker>
   </details>
   <persistentvariables>
     <variable name="log" type="text" label="log"/>

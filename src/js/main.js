@@ -35,6 +35,8 @@
  *
  */
 
+ /* globals ChatLog */
+
 var chatLog = new ChatLog();
 
 document.addEventListener("DOMContentLoaded", chatLog.init.bind(chatLog), false);

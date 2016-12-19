@@ -35,13 +35,16 @@
  *
  */
 
+/* globals StyledElements, MashupPlatform, Vcard */
+
+
 (function () {
 
     "use strict";
 
-    /******************************************************************************/
-    /********************************* PUBLIC *************************************/
-    /******************************************************************************/
+    /* *****************************************************************************/
+    /* ******************************** PUBLIC *************************************/
+    /* *****************************************************************************/
 
     var ChatLog = function ChatLog() {
         MashupPlatform.wiring.registerCallback("profile", handlerProfile.bind(this));
@@ -57,14 +60,14 @@
         this.profile = null;
         this.profileVcard = null;
         this.contact = null;
-        
+
         this.statePropertyLog = MashupPlatform.widget.getVariable("log");
         try {
             this.log = JSON.parse(this.statePropertyLog.get());
         } catch (e) {
             this.log = {};
         }
-        
+
         this.loadingImg = "images/loading4.gif";
         this.okImg = "images/tick.png";
         this.failImg = "images/cancel.png";
@@ -104,17 +107,17 @@
 
         this.sendMenu = new StyledElements.PopupMenu();
         this.sendMenu.append(new StyledElements.SendMenuItems('msgOut', messageGetter.bind(this)));
-        
+
         var myfriend = document.createElement("span");
         myfriend.classList.add("myfriend");
         myfriend.textContent = "";
         this.layout.north.appendChild(myfriend);
-        
+
         var me = document.createElement("span");
         me.classList.add("me");
         me.textContent = MashupPlatform.context.get("username");
         this.layout.north.appendChild(me);
-        
+
         this.repaint();
     };
 
@@ -124,15 +127,15 @@
         }
     };
 
-    /******************************************************************************/
-    /********************************* PRIVATE ************************************/
-    /******************************************************************************/
+    /* *****************************************************************************/
+    /* ******************************** PRIVATE ************************************/
+    /* *****************************************************************************/
 
-    /******************************** HANDLERS ************************************/
+    /* ******************************* HANDLERS ************************************/
 
     var handlerSendButton = function handlerSendButton(button) {
         var text;
-        
+
         text = this.textInput.getValue().trim();
 
         if (text === '') {
@@ -145,9 +148,9 @@
     var messageGetter = function messageGetter() {
         var balloon, text;
         var date = new Date();
-        
+
         text = this.textInput.getValue().trim();
-        
+
         balloon = document.createElement('div');
         var ballonId = "ballon_" + date.valueOf();
         balloon.setAttribute("id", ballonId);
@@ -160,7 +163,7 @@
         this.layout.center.appendChild(balloon);
         moveDownScroll.call(this);
         storeMsg.call(this, this.contact, text, 'sent', ballonId);
-        
+
         return {id: ballonId, recipient: this.profileVcard, text: text};
     };
 
@@ -174,22 +177,22 @@
         } else {
             id = vcard.getValue('EMAIL', 0);
         }
-        
+
         this.contact = id;
-        
+
         this.layout.north.wrapperElement.getElementsByTagName("span")[0].textContent = id;
         this.layout.center.clear();
-        
+
         if (this.contact in this.log) {
             var history = this.log[this.contact];
             for (var i = 0; i < history.length; i++) {
                 var msg = history[i];
-                
+
                 var balloon = document.createElement('div');
                 balloon.setAttribute("id", msg.id);
                 balloon.classList.add('balloon');
                 balloon.textContent = msg.text;
-                
+
                 this.layout.center.appendChild(balloon);
                 if (msg.type === 'recv') {
                     balloon.classList.add('left');
@@ -201,7 +204,7 @@
                 }
             }
         }
-        
+
         moveDownScroll.call(this);
     };
 
@@ -215,9 +218,9 @@
          * */
         var balloon, ballonId;
         var date = new Date();
-        
+
         var json = JSON.parse(jsonMsg);
-        
+
         if (this.contact === json.contact) {
             balloon = document.createElement('div');
             ballonId = "ballon_" + date.valueOf();
@@ -234,7 +237,7 @@
         var img, balloon;
         var i;
         var notFinded, endLog;
-        
+
         if (this.contact in this.log) {
             i = 0;
             notFinded = this.log[this.contact][i].id !== e.id;
@@ -252,7 +255,7 @@
             this.log[this.contact][i].img = img;
             this.statePropertyLog.set(JSON.stringify(this.log));
         }
-            
+
         balloon = document.getElementById(e.id);
         balloon.getElementsByTagName("img")[0].setAttribute("src", img);
     };
@@ -269,12 +272,12 @@
         if (!(contact in this.log)) {
             this.log[contact] = [];
         }
-        
+
         json = {
-            "type" : type,
-            "text" : msg,
-            "img" : this.loadingImg,
-            "id" : id
+            "type": type,
+            "text": msg,
+            "img": this.loadingImg,
+            "id": id
         };
         this.log[contact].push(json);
 
